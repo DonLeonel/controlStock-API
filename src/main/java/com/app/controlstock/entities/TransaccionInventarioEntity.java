@@ -7,39 +7,46 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "transaccionesInventario")
+@Table(name = "transacciones_inventario")
 public class TransaccionInventarioEntity {
+
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
-    @ManyToOne
+
+    @ManyToOne(targetEntity = TipoMovimientoEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_tipo_movimiento")
     private TipoMovimientoEntity tipoMovimiento;
 
-    @Column
-    @ManyToOne
+    @ManyToOne(targetEntity = UsuarioEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usuario", nullable = false)
     private UsuarioEntity usuario;
-    @Column
-    @ManyToOne
+
+    @ManyToOne(targetEntity = ProductoEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_producto")
     private ProductoEntity producto;
 
-    @Column
+    @Column(nullable = false)
     private Integer cantidad;
-    @Column
+    @Column(name = "precioUnitario",nullable = false)
     private Double precioUnitario;
-    @Column
+    @Column(nullable = false)
     private Double total;
     @Column
     private String nota;
-    @Column
+    @Column(name = "fechaHora",nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime fechaHora;
 
-    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_creacion", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime fechaCreacion;
-    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_actualizacion", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime fechaActualizacion;
 }

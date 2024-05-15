@@ -1,8 +1,5 @@
 package com.app.controlstock.entities;
 
-import com.app.controlstock.models.Producto;
-import com.app.controlstock.models.TipoMovimiento;
-import com.app.controlstock.models.Usuario;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -10,38 +7,49 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@Table(name = "historialMovimientosInventario")
+@Table(name = "historial_movimientos_inventario")
 public class HistorialMovimientoInventarioEntity {
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    @ManyToOne
+    @ManyToOne(targetEntity = TipoMovimientoEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_tipo_movimiento", nullable = false)
     private TipoMovimientoEntity tipoMovimiento;
-    @Column
-    @ManyToOne
+
+    @ManyToOne(targetEntity = UsuarioEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usuario", nullable = false)
     private UsuarioEntity usuario;
-    @Column
-    @ManyToOne
+
+    @ManyToOne(targetEntity = ProductoEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_producto")
     private ProductoEntity producto;
 
-    @Column
+    @ManyToOne(targetEntity = CompraEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_compra")
+    private CompraEntity compra;
+
+    @ManyToOne(targetEntity = VentaEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_venta")
+    private VentaEntity venta;
+
+    @Column(nullable = false)
     private Integer cantidad;
-    @Column
+    @Column(name = "precio_unitario",nullable = false)
     private Double precioUnitario;
-    @Column
+    @Column(name = "precio_actualizado",nullable = false)
     private Double precioActualizado;
-    @Column
+    @Column(nullable = false)
     private Double total;
     @Column
     private String nota;
-    @Column
+    @Column(name = "fecha_hora",nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime fechaHora;
 
-    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_creacion", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime fechaCreacion;
-    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_actualizacion", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime fechaActualizacion;
 }

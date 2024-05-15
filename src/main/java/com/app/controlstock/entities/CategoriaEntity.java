@@ -4,24 +4,33 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 
 @Entity
 @Table(name = "categorias")
 @Data
 public class CategoriaEntity {
     @Id
-    @Column()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String nombre;
 
-    @Column
+    @Column(nullable = false)
     private String descripcion;
 
-    @Column
+    @OneToMany(targetEntity = ProductoEntity.class, fetch = FetchType.LAZY, mappedBy = "categoria")
+    private List<ProductoEntity> productos;
+
+    @Column(nullable = false)
+    private Boolean borrado = false;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_creacion", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime fechaCreacion;
-    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_actualizacion", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime fechaActualizacion;
 }

@@ -5,39 +5,42 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 
 @Entity
 @Data
 @Table(name = "ventas")
 public class VentaEntity {
+
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    @ManyToOne
+    @ManyToOne(targetEntity = UsuarioEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usuario")
     private UsuarioEntity usuario;
 
-    @Column
-    @ManyToOne
-    private ProductoEntity producto;
+    @OneToMany(targetEntity = HistorialMovimientoInventarioEntity.class, fetch = FetchType.LAZY, mappedBy = "venta")
+    private List<HistorialMovimientoInventarioEntity> historialMovimientosInventario;
 
-    @Column
+    @Column(nullable = false)
     private Integer cantidad;
-    @Column
+    @Column(name = "precio_unitario",nullable = false)
     private Double precioUnitario;
-    @Column
+    @Column(nullable = false)
     private Double total;
-    @Column
+    @Column(name = "forma_de_pago",nullable = false)
     private FormaDePago formaDePago;
     @Column
     private String nota;
-    @Column
+    @Column(name = "fecha_hora",nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime fechaHora;
 
-    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_creacion", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime fechaCreacion;
-    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_actualizacion", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime fechaActualizacion;
 }

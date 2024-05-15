@@ -5,33 +5,48 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "usuarios")
 @Data
 public class UsuarioEntity {
+
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String nombre;
-    @Column
+    @Column(nullable = false)
     private String apellido;
-    @Column
+    @Column(nullable = false)
     private String email;
-    @Column
+    @Column(nullable = false)
     private String password;
     @Column
     private String avatar;
 
-    @Column
-    @ManyToOne
+    @ManyToOne(targetEntity = RolEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_rol", nullable = false)
     private RolEntity rol;
 
-    @Column
+    @OneToMany(targetEntity = CompraEntity.class, fetch = FetchType.LAZY, mappedBy = "usuario")
+    private List<CompraEntity> compras;
+
+    @OneToMany(targetEntity = VentaEntity.class, fetch = FetchType.LAZY, mappedBy = "usuario")
+    private List<VentaEntity> ventas;
+
+    @OneToMany(targetEntity = TransaccionInventarioEntity.class, fetch = FetchType.LAZY, mappedBy = "usuario")
+    private List<TransaccionInventarioEntity> transaccionesInventario;
+
+    @OneToMany(targetEntity = HistorialMovimientoInventarioEntity.class, fetch = FetchType.LAZY, mappedBy = "usuario")
+    private List<HistorialMovimientoInventarioEntity> HistorialMovimientosInventario;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_creacion", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime fechaCreacion;
-    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_actualizacion", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime fechaActualizacion;
 }

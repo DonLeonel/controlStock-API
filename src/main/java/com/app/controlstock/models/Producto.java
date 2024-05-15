@@ -1,6 +1,10 @@
 package com.app.controlstock.models;
 
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 @Data
 public class Producto {
@@ -11,4 +15,7 @@ public class Producto {
     private Integer stock;
     private Double precioUnitario;
     private Double precioDeCompra;
+
+    private LocalDateTime fechaCreacion;
+    private LocalDateTime fechaActualizacion;
 }

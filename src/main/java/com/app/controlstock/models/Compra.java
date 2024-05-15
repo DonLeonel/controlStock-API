@@ -1,5 +1,7 @@
 package com.app.controlstock.models;
 
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -13,4 +15,7 @@ public class Compra {
     private Double total;
     private String nota;
     private LocalDateTime fechaHora;
+
+    private LocalDateTime fechaCreacion;
+    private LocalDateTime fechaActualizacion;
 }
