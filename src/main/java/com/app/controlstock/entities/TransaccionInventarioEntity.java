@@ -6,6 +6,7 @@ import com.app.controlstock.models.Usuario;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
@@ -34,10 +35,10 @@ public class TransaccionInventarioEntity {
 
     @Column(nullable = false)
     private Integer cantidad;
-    @Column(name = "precioUnitario",nullable = false)
-    private Double precioUnitario;
-    @Column(nullable = false)
-    private Double total;
+    @Column(name = "precioUnitario",nullable = false, columnDefinition = "DECIMAL(15,2)")
+    private BigDecimal precioUnitario;
+    @Column(nullable = false, columnDefinition = "DECIMAL(15,2)")
+    private BigDecimal total;
     @Column
     private String nota;
     @Column(name = "fechaHora",nullable = false, columnDefinition = "DATETIME")

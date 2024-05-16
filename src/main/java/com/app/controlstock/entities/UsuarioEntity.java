@@ -26,6 +26,9 @@ public class UsuarioEntity {
     private String password;
     @Column
     private String avatar;
+    @Column(name = "ultima_conexion", columnDefinition = "DATETIME")
+    private LocalDateTime ultimaConexion;
+
 
     @ManyToOne(targetEntity = RolEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_rol", nullable = false)

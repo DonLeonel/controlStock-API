@@ -1,5 +1,7 @@
 package com.app.controlstock.services;
 
+import com.app.controlstock.dtos.request.ReqCategoriaDTO;
+import com.app.controlstock.dtos.response.ResCategoriaDTO;
 import com.app.controlstock.exceptions.NotFoundException;
 import com.app.controlstock.entities.CategoriaEntity;
 import com.app.controlstock.models.Categoria;
@@ -24,55 +26,48 @@ public class CategoriasService implements ICategoriaService {
     }
 
     @Override
-    public Categoria saveCategoria(Categoria categoria) {
-        if(categoria == null) return null;
-        CategoriaEntity categoriaEntity = categoriaJpaRepository.save(setFechas(mapToEntity(categoria)));
-        return mapToModel(categoriaEntity);
+    public ResCategoriaDTO save(ReqCategoriaDTO reqCategoriaDTO) {
+        reqCategoriaDTO.setFechaCreacion(LocalDateTime.now());
+        reqCategoriaDTO.setFechaActualizacion(LocalDateTime.now());
+        reqCategoriaDTO.setBorrado(false);
+        CategoriaEntity categoriaEntity = categoriaJpaRepository.save(mapToEntity(reqCategoriaDTO));
+        return mapToDTO(categoriaEntity);
     }
 
     @Override
-    public List<Categoria> getAll() {
+    public List<ResCategoriaDTO> getAll() {
        return categoriaJpaRepository.findAll().stream().filter(e -> e.getBorrado().equals(false))
-                .map(this::mapToModel)
+                .map(this::mapToDTO)
                 .toList();
     }
 
     @Override
-    public Categoria findById(Long id) {
+    public ResCategoriaDTO findById(Long id) {
         CategoriaEntity categoriaEntity = categoriaJpaRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("No se encontro la Categoria."));
-        return mapToModel(categoriaEntity);
+        return mapToDTO(categoriaEntity);
     }
 
     @Override
-    public Categoria updateCategoria(Categoria categoria) {
+    public ResCategoriaDTO update(Categoria categoria) {
         CategoriaEntity categoriaEntity = categoriaJpaRepository.getReferenceById(categoria.getId());
-        mergerMapper.map(categoria, setFechaUpdate(categoriaEntity));
-        return mapToModel(categoriaJpaRepository.save(categoriaEntity));
+        categoriaEntity.setFechaActualizacion(LocalDateTime.now());
+        mergerMapper.map(categoria, categoriaEntity);
+        return mapToDTO(categoriaJpaRepository.save(categoriaEntity));
     }
 
     @Override
     public void deleteById(Long id) {
         CategoriaEntity categoriaEntity = categoriaJpaRepository.getReferenceById(id);
         categoriaEntity.setBorrado(true);
-        categoriaJpaRepository.save(setFechaUpdate(categoriaEntity));
-    }
-
-    private Categoria mapToModel(CategoriaEntity categoriaEntity){
-        return this.modelMapper.map(categoriaEntity, Categoria.class);
-    }
-    private CategoriaEntity mapToEntity(Categoria categoria){
-        return this.modelMapper.map(categoria, CategoriaEntity.class);
-    }
-
-    private CategoriaEntity setFechas(CategoriaEntity categoriaEntity){
-        categoriaEntity.setFechaCreacion(LocalDateTime.now());
         categoriaEntity.setFechaActualizacion(LocalDateTime.now());
-        return categoriaEntity;
+        categoriaJpaRepository.save(categoriaEntity);
     }
 
-    private CategoriaEntity setFechaUpdate(CategoriaEntity categoriaEntity){
-        categoriaEntity.setFechaActualizacion(LocalDateTime.now());
-        return categoriaEntity;
+    private ResCategoriaDTO mapToDTO(CategoriaEntity categoriaEntity){
+        return this.modelMapper.map(categoriaEntity, ResCategoriaDTO.class);
+    }
+    private CategoriaEntity mapToEntity(ReqCategoriaDTO reqCategoriaDTO){
+        return this.modelMapper.map(reqCategoriaDTO, CategoriaEntity.class);
     }
 }

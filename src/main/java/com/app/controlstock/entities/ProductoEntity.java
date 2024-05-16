@@ -3,6 +3,7 @@ package com.app.controlstock.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -43,11 +44,13 @@ public class ProductoEntity {
     private List<TransaccionInventarioEntity> transaccionesInventario;
 
     @Column(nullable = false)
-    private Integer cantidad;
-    @Column( name = "precio_unitario",nullable = false)
-    private Double precioUnitario;
-    @Column(name = "precio_de_compra")
-    private Double precioDeCompra;
+    private Integer stock;
+    @Column( name = "precio_unitario",nullable = false, columnDefinition = "DECIMAL(15,2)")
+    private BigDecimal precioUnitario;
+    @Column(name = "precio_de_compra", columnDefinition = "DECIMAL(15,2)")
+    private BigDecimal precioDeCompra;
+    @Column(nullable = false)
+    private Boolean borrado;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fecha_creacion", nullable = false, columnDefinition = "DATETIME")

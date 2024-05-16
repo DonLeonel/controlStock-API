@@ -3,6 +3,7 @@ package com.app.controlstock.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,10 +24,10 @@ public class CompraEntity {
 
     @Column(nullable = false)
     private Integer cantidad;
-    @Column(name = "precio_de_compra",nullable = false)
-    private Double precioDeCompra;
-    @Column(nullable = false)
-    private Double total;
+    @Column(name = "precio_de_compra",nullable = false, columnDefinition = "DECIMAL(15,2)")
+    private BigDecimal precioDeCompra;
+    @Column(nullable = false, columnDefinition = "DECIMAL(15,2)")
+    private BigDecimal total;
     @Column
     private String nota;
     @Column(name = "fecha_hora",nullable = false, columnDefinition = "DATETIME")

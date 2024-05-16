@@ -4,6 +4,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 @Data
 public class Compra {
@@ -11,8 +12,8 @@ public class Compra {
     private Usuario usuario;
     private Producto producto;
     private Integer cantidad;
-    private Double precioDeCompra;
-    private Double total;
+    private BigDecimal precioDeCompra;
+    private BigDecimal total;
     private String nota;
     private LocalDateTime fechaHora;
 

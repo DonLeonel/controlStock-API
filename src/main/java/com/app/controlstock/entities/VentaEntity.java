@@ -4,6 +4,7 @@ import com.app.controlstock.models.FormaDePago;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -26,10 +27,10 @@ public class VentaEntity {
 
     @Column(nullable = false)
     private Integer cantidad;
-    @Column(name = "precio_unitario",nullable = false)
-    private Double precioUnitario;
-    @Column(nullable = false)
-    private Double total;
+    @Column(name = "precio_unitario",nullable = false, columnDefinition = "DECIMAL(15,2)")
+    private BigDecimal precioUnitario;
+    @Column(nullable = false, columnDefinition = "DECIMAL(15,2)")
+    private BigDecimal total;
     @Column(name = "forma_de_pago",nullable = false)
     private FormaDePago formaDePago;
     @Column

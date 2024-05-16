@@ -25,7 +25,7 @@ public class CategoriaEntity {
     private List<ProductoEntity> productos;
 
     @Column(nullable = false)
-    private Boolean borrado = false;
+    private Boolean borrado;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fecha_creacion", nullable = false, columnDefinition = "DATETIME")

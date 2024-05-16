@@ -3,6 +3,7 @@ package com.app.controlstock.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -35,12 +36,12 @@ public class HistorialMovimientoInventarioEntity {
 
     @Column(nullable = false)
     private Integer cantidad;
-    @Column(name = "precio_unitario",nullable = false)
-    private Double precioUnitario;
-    @Column(name = "precio_actualizado",nullable = false)
-    private Double precioActualizado;
-    @Column(nullable = false)
-    private Double total;
+    @Column(name = "precio_unitario",nullable = false, columnDefinition = "DECIMAL(15,2)")
+    private BigDecimal precioUnitario;
+    @Column(name = "precio_actualizado",nullable = false, columnDefinition = "DECIMAL(15,2)")
+    private BigDecimal precioActualizado;
+    @Column(nullable = false, columnDefinition = "DECIMAL(15,2)")
+    private BigDecimal total;
     @Column
     private String nota;
     @Column(name = "fecha_hora",nullable = false, columnDefinition = "DATETIME")
