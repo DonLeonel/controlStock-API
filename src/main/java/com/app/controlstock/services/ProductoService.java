@@ -1,7 +1,7 @@
 package com.app.controlstock.services;
 
 import com.app.controlstock.dtos.request.ReqProductoDTO;
-import com.app.controlstock.dtos.request.ReqPutProductoDTO;
+import com.app.controlstock.dtos.request.update.ReqPutProductoDTO;
 import com.app.controlstock.dtos.response.ResProductoDTO;
 import com.app.controlstock.entities.ProductoEntity;
 import com.app.controlstock.exceptions.NotFoundException;
@@ -14,12 +14,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class ProductosService implements IProductoService {
+public class ProductoService implements IProductoService {
 
     private final ProductoJpaRepository productoJpaRepository;
     private final ModelMapper modelMapper;
     private final ModelMapper mergerMapper;
-    public ProductosService(ProductoJpaRepository productoJpaRepository, ModelMapper modelMapper, ModelMapper mergerMapper) {
+    public ProductoService(ProductoJpaRepository productoJpaRepository, ModelMapper modelMapper, ModelMapper mergerMapper) {
         this.productoJpaRepository = productoJpaRepository;
         this.modelMapper = modelMapper;
         this.mergerMapper = mergerMapper;

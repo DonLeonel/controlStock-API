@@ -14,12 +14,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class CategoriasService implements ICategoriaService {
+public class CategoriaService implements ICategoriaService {
     private final CategoriaJpaRepository categoriaJpaRepository;
     private final ModelMapper modelMapper;
     private final ModelMapper mergerMapper;
 
-    public CategoriasService(CategoriaJpaRepository categoriaJpaRepository, ModelMapper modelMapper, ModelMapper mergerMapper){
+    public CategoriaService(CategoriaJpaRepository categoriaJpaRepository, ModelMapper modelMapper, ModelMapper mergerMapper){
         this.categoriaJpaRepository = categoriaJpaRepository;
         this.modelMapper = modelMapper;
         this.mergerMapper = mergerMapper;

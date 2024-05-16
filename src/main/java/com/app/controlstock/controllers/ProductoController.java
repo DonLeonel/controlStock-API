@@ -1,9 +1,10 @@
 package com.app.controlstock.controllers;
 
 import com.app.controlstock.dtos.request.ReqProductoDTO;
-import com.app.controlstock.dtos.request.ReqPutProductoDTO;
+import com.app.controlstock.dtos.request.update.ReqPutProductoDTO;
 import com.app.controlstock.dtos.response.ResProductoDTO;
-import com.app.controlstock.services.ProductosService;
+import com.app.controlstock.services.ProductoService;
+import com.app.controlstock.services.interfaces.IProductoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +14,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/productos")
 public class ProductoController {
-    private final ProductosService service;
-    public ProductoController(ProductosService service) {
+    private final IProductoService service;
+    public ProductoController(ProductoService service) {
         this.service = service;
     }
 

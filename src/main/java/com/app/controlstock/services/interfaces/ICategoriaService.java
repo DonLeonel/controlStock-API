@@ -9,7 +9,6 @@ import java.util.List;
 
 @Service
 public interface ICategoriaService {
-
     ResCategoriaDTO save(ReqCategoriaDTO reqCategoriaDTO);
     List<ResCategoriaDTO> getAll();
     ResCategoriaDTO findById(Long id);

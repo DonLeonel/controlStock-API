@@ -28,7 +28,8 @@ public class UsuarioEntity {
     private String avatar;
     @Column(name = "ultima_conexion", columnDefinition = "DATETIME")
     private LocalDateTime ultimaConexion;
-
+    @Column
+    private Boolean borrado;
 
     @ManyToOne(targetEntity = RolEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_rol", nullable = false)

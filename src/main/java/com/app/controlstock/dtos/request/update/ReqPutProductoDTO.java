@@ -1,4 +1,4 @@
-package com.app.controlstock.dtos.request;
+package com.app.controlstock.dtos.request.update;
 
 import com.app.controlstock.models.Categoria;
 import lombok.Data;

@@ -1,21 +1,20 @@
-package com.app.controlstock.models;
+package com.app.controlstock.dtos.request.update;
 
+import com.app.controlstock.dtos.response.ResRolDTO;
+import com.app.controlstock.models.Rol;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-
 @Data
-public class Usuario {
+public class ReqPutUsuarioDTO {
     private Long id;
     private String nombre;
     private String apellido;
     private String email;
     private String password;
     private String avatar;
-    private Rol rol;
-    private LocalDateTime ultimaConexion;
+    private Integer rolID;
     private Boolean borrado;
 
-    private LocalDateTime fechaCreacion;
     private LocalDateTime fechaActualizacion;
 }

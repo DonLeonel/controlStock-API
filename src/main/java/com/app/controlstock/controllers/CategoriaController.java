@@ -3,8 +3,8 @@ package com.app.controlstock.controllers;
 import com.app.controlstock.dtos.request.ReqCategoriaDTO;
 import com.app.controlstock.dtos.response.ResCategoriaDTO;
 import com.app.controlstock.models.Categoria;
-import com.app.controlstock.services.CategoriasService;
-import lombok.NonNull;
+import com.app.controlstock.services.CategoriaService;
+import com.app.controlstock.services.interfaces.ICategoriaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +14,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/categorias")
 public class CategoriaController {
-    private final CategoriasService service;
-    public CategoriaController(CategoriasService service) {
+    private final ICategoriaService service;
+    public CategoriaController(CategoriaService service) {
         this.service = service;
     }
 

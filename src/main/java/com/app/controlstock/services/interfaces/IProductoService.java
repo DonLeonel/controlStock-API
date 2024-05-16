@@ -1,7 +1,7 @@
 package com.app.controlstock.services.interfaces;
 
 import com.app.controlstock.dtos.request.ReqProductoDTO;
-import com.app.controlstock.dtos.request.ReqPutProductoDTO;
+import com.app.controlstock.dtos.request.update.ReqPutProductoDTO;
 import com.app.controlstock.dtos.response.ResProductoDTO;
 import org.springframework.stereotype.Service;
 
